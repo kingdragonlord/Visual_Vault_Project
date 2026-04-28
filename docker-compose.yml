@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # This maps your local 'models' folder into the container.
+      # When YOLO downloads yolov8n.pt, it saves to your actual hard drive!
+      - ./models:/app/models
+    # This section passes your GPU straight through to the container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

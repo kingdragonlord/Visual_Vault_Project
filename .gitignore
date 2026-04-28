@@ -1,0 +1,16 @@
+# Environments
+venv/
+env/
+.env
+
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+
+# ML Models (Don't push heavy weights to Git!)
+models/*.pt
+
+# OS generated files
+.DS_Store
+Thumbs.db
