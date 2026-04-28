@@ -9,7 +9,17 @@ A fast, containerized REST API that exposes the YOLOv8 object detection model us
 * Dockerized: Fully containerized environment using a multi-stage Dockerfile and Docker Compose for easy deployment.
 
 ## Project Structure
-text yolo-api/ ├── app/ │   ├── api/          # API routing and endpoints │   ├── schemas/      # Pydantic data validation models │   └── services/     # ML model lazy-loading and inference logic ├── models/           # Local storage for downloaded YOLO weights ├── Dockerfile        # Container build instructions ├── docker-compose.yml# Container orchestration and GPU passthrough └── requirements.txt  # Python dependencies with CUDA index 
+## Project Structure
+
+* yolo-api/ (Root Directory)
+* app/
+* api/ - API routing and endpoints.
+* schemas/ - Pydantic data validation models.
+* services/ - ML model lazy-loading and inference logic.
+* models/ - Local storage for downloaded YOLO weights.
+* Dockerfile - Container build instructions.
+* docker-compose.yml - Container orchestration and GPU passthrough.
+* requirements.txt - Python dependencies with CUDA index.
 
 ## How to Run Locally
 
