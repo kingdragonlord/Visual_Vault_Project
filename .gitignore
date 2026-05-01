@@ -15,4 +15,5 @@ models/*.pt
 .DS_Store
 Thumbs.db
 
-temp_uploads/
+storage/uploads/
+
