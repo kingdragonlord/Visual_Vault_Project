@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Import our router and our ML service
 from app.api.endpoints import router as inference_router
+from app.api.auth import router as auth_router
 from app.services.model import get_model_service
 
 @asynccontextmanager
@@ -42,3 +43,4 @@ app.add_middleware(
 
 # Attach the endpoints we created in Step 4
 app.include_router(inference_router, prefix="/api/v1", tags=["Inference"])
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])

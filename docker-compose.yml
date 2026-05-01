@@ -4,10 +4,16 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # This maps your local 'models' folder into the container.
-      # When YOLO downloads yolov8n.pt, it saves to your actual hard drive!
       - ./models:/app/models
-    # This section passes your GPU straight through to the container
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://yolo_user:yolo_password@db:5432/yolo_db
+      - SECRET_KEY=super-secret-jwt-key-change-in-production
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
     deploy:
       resources:
         reservations:
@@ -15,3 +21,27 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=yolo_user
+      - POSTGRES_PASSWORD=yolo_password
+      - POSTGRES_DB=yolo_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yolo_user -d yolo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
